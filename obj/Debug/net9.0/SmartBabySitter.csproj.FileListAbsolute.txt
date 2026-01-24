@@ -1,0 +1,7 @@
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.csproj.AssemblyReference.cache
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.GeneratedMSBuildEditorConfig.editorconfig
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.AssemblyInfoInputs.cache
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.AssemblyInfo.cs
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.csproj.CoreCompileInputs.cache
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.MvcApplicationPartsAssemblyInfo.cs
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.MvcApplicationPartsAssemblyInfo.cache
