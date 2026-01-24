@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartBabySitter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a19ce2bf739302d48a80c80e0d24b5a634cf002e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartBabySitter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartBabySitter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
