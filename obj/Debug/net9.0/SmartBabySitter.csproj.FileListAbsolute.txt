@@ -150,3 +150,7 @@ C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.pdb
 C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\SmartBabySitter.genruntimeconfig.cache
 C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\ref\SmartBabySitter.dll
 C:\BabySitterProject\SmartBabySitter\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\BabySitterProject\SmartBabySitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\BabySitterProject\SmartBabySitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\BabySitterProject\SmartBabySitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\BabySitterProject\SmartBabySitter\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

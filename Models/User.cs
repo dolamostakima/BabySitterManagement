@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
-
+﻿
 namespace SmartBabySitter.Models
 {
     public class User
@@ -15,6 +14,8 @@ namespace SmartBabySitter.Models
         public string Location { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        public string Role { get; set; }  // Parent / BabySitter / Admin
 
         // Navigation
         public ICollection<Booking> Bookings { get; set; }
