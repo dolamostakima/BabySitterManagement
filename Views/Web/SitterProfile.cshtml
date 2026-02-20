@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "My Sitter Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>My Profile</h3>
+<div id="msg"></div>
+
+<div class="card p-3 mb-3">
+    <div class="mb-2">
+        <label>Skills Text</label>
+        <input id="skillsText" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Skills (comma)</label>
+        <input id="skills" class="form-control" placeholder="cooking, first aid" />
+    </div>
+    <div class="mb-2">
+        <label>Experience Years</label>
+        <input id="exp" type="number" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Hourly Rate</label>
+        <input id="rate" type="number" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Location</label>
+        <input id="loc" class="form-control" />
+    </div>
+    <button id="btnSave" class="btn btn-success">Save</button>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-3">
+            <h5>My Skills List</h5>
+            <ul id="skillsList" class="mb-0"></ul>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-3">
+            <h5>My Availabilities</h5>
+            <div id="avList"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function getToken(){
+            return (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g, "");
+        }
+
+        function showOk(msg){
+            $("#msg").html(`<div class="alert alert-success">${msg}</div>`);
+        }
+
+        function showErr(msg){
+            $("#msg").html(`<div class="alert alert-danger">${msg}</div>`);
+        }
+
+        function formatDay(d){
+            if(d === null || d === undefined) return "";
+            const names = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+            return names[d] || d;
+        }
+
+        function formatTime(ts){
+            // "HH:mm:ss" -> "HH:mm"
+            if(!ts) return "";
+            return ts.toString().substring(0,5);
+        }
+
+        function loadMyProfile(){
+            $.ajax({
+                url: "/api/sitters/me/profile",
+                method: "GET",
+                headers: { Authorization: `Bearer ${getToken()}` }
+            })
+            .done(p => {
+                if(!p){
+                    $("#skillsList").html("");
+                    $("#avList").html(`<div class="text-muted">No profile yet.</div>`);
+                    return;
+                }
+
+                // Fill form (optional)
+                $("#skillsText").val(p.skillsText || "");
+                $("#exp").val(p.experienceYears || 0);
+                $("#rate").val(p.hourlyRate || 0);
+                $("#loc").val(p.locationText || "");
+
+                // Skills list
+                const skills = p.skills || [];
+                $("#skillsList").html(skills.length
+                    ? skills.map(s => `<li>${s}</li>`).join("")
+                    : `<li class="text-muted">No skills</li>`);
+
+                // Availabilities list
+                const avs = p.availabilities || [];
+                if(!avs.length){
+                    $("#avList").html(`<div class="text-muted">No availability added.</div>`);
+                } else {
+                    const html = `
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${avs.map(a => `
+                                    <tr>
+                                        <td>${a.day !== null ? formatDay(a.day) : "-"}</td>
+                                        <td>${a.date ? a.date.substring(0,10) : "-"}</td>
+                                        <td>${formatTime(a.startTime)} - ${formatTime(a.endTime)}</td>
+                                        <td>${a.isAvailable ? "Available" : "Unavailable"}</td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>`;
+                    $("#avList").html(html);
+                }
+            })
+            .fail(xhr => showErr(xhr.responseText || "Load failed"));
+        }
+
+        $("#btnSave").click(()=> {
+            const skills = ($("#skills").val()||"")
+                .split(",").map(x=>x.trim()).filter(x=>x);
+
+            const payload = {
+                skillsText: $("#skillsText").val()||"",
+                experienceYears: Number($("#exp").val()||0),
+                hourlyRate: Number($("#rate").val()||0),
+                locationText: $("#loc").val()||"",
+                latitude: null,
+                longitude: null,
+                skills: skills
+            };
+
+            $.ajax({
+                url: "/api/sitters/me/profile",
+                method:"POST",
+                contentType:"application/json",
+                headers: { Authorization: `Bearer ${getToken()}` },
+                data: JSON.stringify(payload)
+            })
+            .done(r => {
+                showOk(`Saved! ProfileId: ${r.babySitterProfileId}`);
+                loadMyProfile(); // ✅ save পর refresh
+            })
+            .fail(xhr => showErr(xhr.responseText || "Save failed"));
+        });
+
+        $(document).ready(loadMyProfile);
+    </script>
+}

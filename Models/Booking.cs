@@ -1,25 +1,35 @@
-﻿namespace SmartBabySitter.Models
+﻿namespace SmartBabySitter.Models;
+
+public class Booking
 {
-    public class Booking
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+    // parent (user)
+    public int ParentUserId { get; set; }
+    public ApplicationUser ParentUser { get; set; } = default!;
 
-        public int BabySitterId { get; set; }
-        public BabySitter BabySitter { get; set; }
+    // sitter
+    public int BabySitterProfileId { get; set; }
+    public BabySitterProfile BabySitterProfile { get; set; } = default!;
 
-        public DateTime BookingDate { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+    public DateTime BookingDate { get; set; } // date part
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
 
-        public string Status { get; set; }
-        // Pending, Confirmed, Completed, Cancelled
+    public string ServiceAddressText { get; set; } = "";
+    public string? Notes { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public BookingStatus Status { get; set; } = BookingStatus.Pending;
 
-        // Navigation
-        public Payment Payment { get; set; }
-    }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? CompletedAt { get; set; }
+
+    // money (optional persisted)
+    public decimal? TotalAmount { get; set; }
+
+    // navigation
+    public Payment? Payment { get; set; }
+    public Attendance? Attendance { get; set; }
+    public ICollection<BookingStatusHistory> StatusHistory { get; set; } = new List<BookingStatusHistory>();
+    public Review? Review { get; set; }
 }

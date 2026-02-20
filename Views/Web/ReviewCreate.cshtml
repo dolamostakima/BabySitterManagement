@@ -1,0 +1,99 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Write Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var bookingId = Model;
+}
+
+<h3 class="mb-3">Write a Review (Booking #@bookingId)</h3>
+
+<div id="msg"></div>
+
+<div id="wrap" class="card p-3 shadow-sm" style="display:none;">
+    <div class="mb-2">
+        <div class="text-muted small">Sitter</div>
+        <div class="fw-bold" id="sitterName">-</div>
+        <div class="text-muted" id="sitterEmail">-</div>
+    </div>
+
+    <hr />
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Rating</label>
+        <div class="d-flex gap-2 align-items-center">
+            <select id="rating" class="form-select" style="max-width:140px;">
+                <option value="5">★★★★★ (5)</option>
+                <option value="4">★★★★☆ (4)</option>
+                <option value="3">★★★☆☆ (3)</option>
+                <option value="2">★★☆☆☆ (2)</option>
+                <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+            <span class="text-muted small" id="bookingInfo"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-bold">Comment (optional)</label>
+        <textarea id="comment" class="form-control" rows="4" placeholder="Write your experience..."></textarea>
+    </div>
+
+    <button id="btnSubmit" class="btn btn-primary">Submit Review</button>
+</div>
+
+@section Scripts {
+    <script>
+        const bookingId = @bookingId;
+        const token = (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g, "");
+
+        function showOk(t){ $("#msg").html(`<div class="alert alert-success">${t}</div>`); }
+        function showErr(t){ $("#msg").html(`<div class="alert alert-danger">${t}</div>`); }
+
+        function api(method, url, body){
+          return $.ajax({
+            url,
+            method,
+            contentType:"application/json",
+            headers: { Authorization: `Bearer ${token}` },
+            data: body ? JSON.stringify(body) : null
+          });
+        }
+
+        function load(){
+          api("GET", `/api/reviews/can-review?bookingId=${bookingId}`)
+            .done(r=>{
+              if(!r.can){
+                $("#wrap").hide();
+                showErr(r.reason || "You cannot review this booking.");
+                return;
+              }
+
+              $("#wrap").show();
+              $("#sitterName").text(r.booking.sitter.fullName || "-");
+              $("#sitterEmail").text(r.booking.sitter.email || "-");
+
+              const d = (r.booking.bookingDate || "").substring(0,10);
+              const st = (r.booking.startTime || "").substring(0,5);
+              const et = (r.booking.endTime || "").substring(0,5);
+              $("#bookingInfo").text(`Date: ${d} • Time: ${st}-${et}`);
+            })
+            .fail(x=> showErr(x.responseText || "Failed to load review info."));
+        }
+
+        $("#btnSubmit").click(function(){
+          const payload = {
+            bookingId: bookingId,
+            rating: parseInt($("#rating").val(), 10),
+            comment: $("#comment").val() || null
+          };
+
+          api("POST", "/api/reviews", payload)
+            .done(res=>{
+              showOk("Review submitted! ReviewId: " + res.reviewId);
+              $("#btnSubmit").prop("disabled", true);
+            })
+            .fail(x=> showErr(x.responseText || "Submit failed"));
+        });
+
+        $(document).ready(load);
+    </script>
+}

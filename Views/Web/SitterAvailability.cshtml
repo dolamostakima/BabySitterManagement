@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "My Availability";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>Availability</h3>
+<div id="msg"></div>
+
+<div class="card p-3 mb-3">
+    <div class="row g-2">
+        <div class="col-md-3">
+            <select id="day" class="form-select">
+                <option value="">(Weekly) Select Day</option>
+                <option value="1">Sunday</option>
+                <option value="2">Monday</option>
+                <option value="3">Tuesday</option>
+                <option value="4">Wednesday</option>
+                <option value="5">Thursday</option>
+                <option value="6">Friday</option>
+                <option value="7">Saturday</option>
+            </select>
+        </div>
+        <div class="col-md-3"><input id="date" type="date" class="form-control" placeholder="(Date specific)" /></div>
+        <div class="col-md-2"><input id="start" type="time" class="form-control" /></div>
+        <div class="col-md-2"><input id="end" type="time" class="form-control" /></div>
+        <div class="col-md-2"><button id="btnAdd" class="btn btn-primary w-100">Add</button></div>
+    </div>
+</div>
+
+<div id="list"></div>
+
+@section Scripts {
+    <script>
+        function t(v){ return v ? (v.length===5 ? v+":00" : v) : null; }
+
+        function load(){
+          $.get("/api/availabilities/me")
+            .done(items=>{
+              if(!items.length){ $("#list").html(`<div class="alert alert-warning">No availability</div>`); return; }
+              let html=`<table class="table table-bordered"><thead><tr><th>Id</th><th>Day</th><th>Date</th><th>Time</th><th>Action</th></tr></thead><tbody>`;
+              items.forEach(a=>{
+                html += `<tr>
+                  <td>${a.id}</td>
+                  <td>${a.day ?? ""}</td>
+                  <td>${a.date ? a.date.substring(0,10) : ""}</td>
+                  <td>${a.startTime} - ${a.endTime}</td>
+                  <td><button class="btn btn-sm btn-danger" onclick="del(${a.id})">Delete</button></td>
+                </tr>`;
+              });
+              html += `</tbody></table>`;
+              $("#list").html(html);
+            })
+            .fail(xhr=> $("#msg").html(`<div class="alert alert-danger">${xhr.responseText||"Load failed"}</div>`));
+        }
+
+        window.del = function(id){
+          $.ajax({url:"/api/availabilities/me/"+id, method:"DELETE"})
+            .done(()=>load())
+            .fail(xhr=>alert(xhr.responseText||"Delete failed"));
+        }
+
+
+        $("#day").on("change", function(){
+          if ($(this).val()) $("#date").val("").prop("disabled", true);
+          else $("#date").prop("disabled", false);
+        });
+
+        $("#date").on("change", function(){
+          if ($(this).val()) $("#day").val("").prop("disabled", true);
+          else $("#day").prop("disabled", false);
+        });
+        $("#btnAdd").click(() => {
+
+          const dayVal = $("#day").val();
+          const dateVal = $("#date").val();
+
+          // ✅ Provide only ONE: Day OR Date
+          let day = dayVal === "" ? null : parseInt(dayVal, 10);
+          let date = dateVal === "" ? null : dateVal;
+
+          if (date) day = null;
+          if (day !== null) date = null;
+
+          const payload = {
+            day,
+            date,
+            startTime: $("#start").val() + ":00",
+            endTime: $("#end").val() + ":00",
+            isAvailable: true
+          };
+
+          const token = (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g, "");
+
+          $.ajax({
+            url: "/api/availabilities/me",
+            method: "POST",
+            contentType: "application/json",
+            headers: { Authorization: `Bearer ${token}` },
+            data: JSON.stringify(payload)
+          })
+          .done((res) => {
+            showMsg("#msg", "Added! AvailabilityId: " + res.availabilityId, "ok");
+            load();
+          })
+          .fail((xhr) => {
+            showMsg("#msg", xhr.responseText || "Add failed", "err");
+          });
+        });
+
+        load();
+    </script>
+}

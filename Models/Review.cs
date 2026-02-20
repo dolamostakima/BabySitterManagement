@@ -1,21 +1,23 @@
-﻿namespace SmartBabySitter.Models
+﻿namespace SmartBabySitter.Models;
+
+public class Review
 {
-    public class Review
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public int BookingId { get; set; }
-        public Booking Booking { get; set; }
+    public int BookingId { get; set; }
+    public Booking Booking { get; set; } = default!;
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+    public int ParentUserId { get; set; }
+    public ApplicationUser ParentUser { get; set; } = default!;
 
-        public int BabySitterId { get; set; }
-        public BabySitter BabySitter { get; set; }
+    public int BabySitterProfileId { get; set; }
+    public BabySitterProfile BabySitterProfile { get; set; } = default!;
 
-        public int Rating { get; set; } // 1–5
-        public string Comment { get; set; }
+    public int Rating { get; set; } // 1–5
+    public string? Comment { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-    }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public bool IsApproved { get; set; } = false; // Admin approve করলে true
+    public bool IsHidden { get; set; } = false;   // Admin hide করলে true
 }

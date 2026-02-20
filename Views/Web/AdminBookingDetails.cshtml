@@ -1,0 +1,200 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Admin - Booking Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = Model;
+}
+
+<h3 class="mb-4">Booking Details (#@id)</h3>
+
+<div id="msg"></div>
+<div id="details">Loading...</div>
+
+@section Scripts {
+    <script>
+        const id = @id;
+        const token = (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g,"");
+
+        function api(method,url,body){
+            return $.ajax({
+                url,
+                method,
+                contentType:"application/json",
+                headers:{Authorization:`Bearer ${token}`},
+                data: body? JSON.stringify(body):null
+            });
+        }
+
+        function badge(status){
+            const map={
+                Pending:"warning",
+                Accepted:"info",
+                Confirmed:"primary",
+                Completed:"success",
+                Rejected:"danger",
+                Cancelled:"secondary"
+            };
+            return `<span class="badge bg-${map[status]||"dark"}">${status}</span>`;
+        }
+
+        function showOk(t){ $("#msg").html(`<div class="alert alert-success">${t}</div>`);}
+        function showErr(t){ $("#msg").html(`<div class="alert alert-danger">${t}</div>`);}
+
+        function load(){
+            api("GET","/api/admin/bookings/"+id)
+            .done(b=>{
+
+                let statusButtons="";
+                (b.allowedNextStatuses||[]).forEach(s=>{
+                    statusButtons+=`
+                      <button class="btn btn-sm btn-outline-dark me-1"
+                              onclick="changeStatus('${s}')">${s}</button>`;
+                });
+
+                let payBtn="";
+                if(b.payment && b.payment.status!=="Paid"){
+                    payBtn=`<button class="btn btn-sm btn-success" onclick="markPaid()">Mark Paid</button>`;
+                }
+
+                let checkInBtn="";
+                if(!b.attendance){
+                    checkInBtn=`<button class="btn btn-sm btn-info" onclick="checkIn()">Check-in</button>`;
+                }
+
+                let checkOutBtn="";
+                if(b.attendance && !b.attendance.checkOutTime){
+                    checkOutBtn=`<button class="btn btn-sm btn-warning" onclick="checkOut()">Check-out</button>`;
+                }
+
+                let historyHtml=(b.statusHistory||[]).map(h=>`
+                    <div class="border-start ps-3 mb-2">
+                      <b>${h.fromStatus} → ${h.toStatus}</b>
+                      <div class="text-muted small">${h.changedAt.substring(0,16)}</div>
+                      ${h.note?`<div>${h.note}</div>`:""}
+                    </div>
+                `).join("");
+
+                $("#details").html(`
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <div>Status: ${badge(b.status)}</div>
+                        <div>${statusButtons}</div>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-md-6">
+                            <b>Date:</b> ${b.bookingDate.substring(0,10)}<br/>
+                            <b>Time:</b> ${b.startTime.substring(0,5)} - ${b.endTime.substring(0,5)}<br/>
+                            <b>Address:</b> ${b.serviceAddressText||"-"}
+                        </div>
+                        <div class="col-md-6">
+                            <b>Total:</b> ${b.totalAmount}<br/>
+                            <b>Created:</b> ${b.createdAt.substring(0,10)}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-primary text-white">Parent</div>
+                            <div class="card-body">
+                                ${b.parentUser.fullName}<br/>
+                                ${b.parentUser.email}<br/>
+                                ${b.parentUser.phoneNumber||"-"}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-success text-white">Sitter</div>
+                            <div class="card-body">
+                                ${b.babySitterProfile.user.fullName}<br/>
+                                ${b.babySitterProfile.user.email}<br/>
+                                Rate: ${b.babySitterProfile.hourlyRate}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-info text-white d-flex justify-content-between">
+                                Payment
+                                ${payBtn}
+                            </div>
+                            <div class="card-body">
+                                ${b.payment?`
+                                  Amount: ${b.payment.amount}<br/>
+                                  Method: ${b.payment.method}<br/>
+                                  Status: ${b.payment.status}
+                                `:`No payment record`}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-secondary text-white d-flex justify-content-between">
+                                Attendance
+                                <div>${checkInBtn}${checkOutBtn}</div>
+                            </div>
+                            <div class="card-body">
+                                ${b.attendance?`
+                                  Check-in: ${b.attendance.checkInTime}<br/>
+                                  Check-out: ${b.attendance.checkOutTime||"-"}
+                                `:`No attendance yet`}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-3">
+                    <div class="card-header bg-warning">Review</div>
+                    <div class="card-body">
+                        ${b.review?`
+                            Rating: ⭐ ${b.review.rating}/5<br/>
+                            ${b.review.comment||""}
+                        `:`No review yet`}
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mt-3">
+                    <div class="card-header">Status History</div>
+                    <div class="card-body">${historyHtml||"No history"}</div>
+                </div>
+                `);
+
+            })
+            .fail(x=> showErr(x.responseText||"Failed"));
+        }
+
+        function changeStatus(toStatus){
+            api("POST",`/api/admin/bookings/${id}/status`,{toStatus})
+            .done(()=>{ showOk("Status updated"); load(); })
+            .fail(x=> showErr(x.responseText));
+        }
+
+        function markPaid(){
+            api("POST",`/api/admin/bookings/${id}/payment/mark-paid`,
+                {method:"Cash"})
+            .done(()=>{ showOk("Payment marked paid"); load(); })
+            .fail(x=> showErr(x.responseText));
+        }
+
+        function checkIn(){
+            api("POST",`/api/admin/bookings/${id}/attendance/checkin`)
+            .done(()=>{ showOk("Checked in"); load(); })
+            .fail(x=> showErr(x.responseText));
+        }
+
+        function checkOut(){
+            api("POST",`/api/admin/bookings/${id}/attendance/checkout`)
+            .done(()=>{ showOk("Checked out"); load(); })
+            .fail(x=> showErr(x.responseText));
+        }
+
+        $(document).ready(load);
+    </script>
+}

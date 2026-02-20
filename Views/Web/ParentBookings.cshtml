@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "My Bookings (Parent)";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>My Bookings (Parent)</h3>
+
+<div class="card p-3 mb-3">
+    <div class="row g-2">
+        <div class="col-md-3">
+            <select id="status" class="form-select">
+                <option value="">All</option>
+                <option>Pending</option>
+                <option>Accepted</option>
+                <option>Rejected</option>
+                <option>Confirmed</option>
+                <option>Completed</option>
+                <option>Cancelled</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+        </div>
+    </div>
+</div>
+
+<div id="msg"></div>
+<div id="list"></div>
+
+@section Scripts {
+    <script>
+        function load() {
+            const st = $("#status").val();
+            const url = API_BASE + "/api/my-bookings/parent?page=1&pageSize=50" + (st ? "&status=" + st : "");
+
+            $.get(url)
+                .done(function (res) {
+                    const items = res.items || [];
+                    if (!items.length) {
+                        $("#list").html(`<div class="alert alert-warning">No bookings.</div>`);
+                        return;
+                    }
+
+                    let html = `<table class="table table-bordered">
+                        <thead><tr>
+                            <th>Id</th><th>Date</th><th>Time</th><th>Status</th><th>Sitter</th><th>Rate</th>
+                        </tr></thead><tbody>`;
+
+                    items.forEach(b => {
+                        html += `<tr>
+                            <td>${b.id}</td>
+                            <td>${b.bookingDate.substring(0,10)}</td>
+                            <td>${b.startTime} - ${b.endTime}</td>
+                            <td>${b.status}</td>
+                            <td>${b.sitter.fullName}</td>
+                            <td>${b.sitter.hourlyRate}</td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+                    $("#list").html(html);
+                })
+                .fail(function (xhr) {
+                    showMsg("#msg", xhr.responseText || "Load failed", "err");
+                });
+        }
+
+        $("#btnLoad").click(load);
+        load();
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Register</h3>
+<div id="msg"></div>
+
+<div class="card p-3">
+    <div class="mb-2">
+        <label>Full Name</label>
+        <input id="fullName" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Email</label>
+        <input id="email" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Password</label>
+        <input id="password" type="password" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Role</label>
+        <select id="role" class="form-select">
+            <option value="Parent">Parent</option>
+            <option value="BabySitter">BabySitter</option>
+        </select>
+    </div>
+
+    <button id="btnRegister" class="btn btn-success">Create Account</button>
+</div>
+
+@section Scripts {
+    <script>
+        $("#btnRegister").click(function () {
+            const data = {
+                fullName: $("#fullName").val(),
+                email: $("#email").val(),
+                password: $("#password").val(),
+                role: $("#role").val()
+            };
+
+            $.ajax({
+                url: API_BASE + "/api/auth/register",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (res) {
+                    setToken(res.token);
+                    localStorage.setItem("user_roles", JSON.stringify(res.roles || []));
+                    showMsg("#msg", "Register success! Redirecting...", "ok");
+                    setTimeout(() => location.href = "/Web/Sitters", 700);
+                },
+                error: function (xhr) {
+                    showMsg("#msg", xhr.responseText || "Register failed", "err");
+                }
+            });
+        });
+    </script>
+}

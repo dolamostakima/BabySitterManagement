@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Sitter Panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Sitter Panel - Booking Requests</h3>
+<div id="msg"></div>
+<div id="list"></div>
+
+@section Scripts {
+    <script>
+        function load() {
+            $.get(API_BASE + "/api/my-bookings/sitter?page=1&pageSize=50")
+                .done(function (res) {
+                    const items = res.items || [];
+                    if (!items.length) {
+                        $("#list").html(`<div class="alert alert-warning">No bookings.</div>`);
+                        return;
+                    }
+
+                    let html = `<table class="table table-bordered">
+                        <thead><tr>
+                            <th>Id</th><th>Date</th><th>Time</th><th>Status</th><th>Parent</th><th>Action</th>
+                        </tr></thead><tbody>`;
+
+                    items.forEach(b => {
+                        html += `<tr>
+                            <td>${b.id}</td>
+                            <td>${b.bookingDate.substring(0,10)}</td>
+                            <td>${b.startTime} - ${b.endTime}</td>
+                            <td>${b.status}</td>
+                            <td>${b.parent.fullName} (${b.parent.phoneNumber || ""})</td>
+                            <td>
+                              <button class="btn btn-sm btn-success" onclick="act(${b.id}, 'accept')">Accept</button>
+                              <button class="btn btn-sm btn-danger" onclick="act(${b.id}, 'reject')">Reject</button>
+                              <button class="btn btn-sm btn-primary" onclick="act(${b.id}, 'confirm')">Confirm</button>
+                              <button class="btn btn-sm btn-secondary" onclick="act(${b.id}, 'complete')">Complete</button>
+                            </td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+                    $("#list").html(html);
+                })
+                .fail(function (xhr) {
+                    showMsg("#msg", xhr.responseText || "Load failed", "err");
+                });
+        }
+
+        window.act = function (id, action) {
+            $.ajax({
+                url: API_BASE + "/api/bookings/" + id + "/" + action,
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ note: "" }),
+                success: function () {
+                    showMsg("#msg", "Action success: " + action, "ok");
+                    load();
+                },
+                error: function (xhr) {
+                    showMsg("#msg", xhr.responseText || "Action failed", "err");
+                }
+            });
+        }
+
+        load();
+    </script>
+}

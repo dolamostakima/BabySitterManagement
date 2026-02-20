@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="mb-4">Admin Dashboard</h3>
+
+<div id="dashboard"></div>
+
+@section Scripts {
+    <script>
+        const token = (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g, "");
+
+        $.ajax({
+          url: "/api/admin/dashboard",
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .done(function(d){
+
+          $("#dashboard").html(`
+            <div class="row g-3">
+
+              <div class="col-md-3">
+                <div class="card text-bg-dark shadow">
+                  <div class="card-body">
+                    <h5>Total Bookings</h5>
+                    <h2>${d.bookings.total}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card text-bg-warning shadow">
+                  <div class="card-body">
+                    <h5>Pending</h5>
+                    <h2>${d.bookings.pending}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card text-bg-success shadow">
+                  <div class="card-body">
+                    <h5>Completed</h5>
+                    <h2>${d.bookings.completed}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card text-bg-danger shadow">
+                  <div class="card-body">
+                    <h5>Cancelled</h5>
+                    <h2>${d.bookings.cancelled}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <h5>Total Revenue</h5>
+                    <h3>৳ ${d.revenue.totalRevenue}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <h5>This Month</h5>
+                    <h3>৳ ${d.revenue.monthlyRevenue}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card shadow">
+                  <div class="card-body">
+                    <h5>This Year</h5>
+                    <h3>৳ ${d.revenue.yearlyRevenue}</h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          `);
+
+        })
+        .fail(x => alert(x.responseText || "Failed"));
+    </script>
+}

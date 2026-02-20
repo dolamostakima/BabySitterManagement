@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Admin - Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Admin: Users</h3>
+
+<div class="card p-3 mb-3">
+    <div class="row g-2">
+        <div class="col-md-6">
+            <input id="query" class="form-control" placeholder="Search name/email/phone" />
+        </div>
+        <div class="col-md-2">
+            <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+        </div>
+    </div>
+</div>
+
+<div id="msg"></div>
+<div id="list"></div>
+
+@section Scripts {
+    <script>
+        function load() {
+            const query = $("#query").val();
+            const url = "/api/admin/users" + (query ? ("?query=" + encodeURIComponent(query)) : "");
+
+            $.get(url)
+                .done(function(items) {
+                    if (!items.length) {
+                        $("#list").html(`<div class="alert alert-warning">No users.</div>`);
+                        return;
+                    }
+
+                    let html = `<table class="table table-bordered">
+                      <thead><tr>
+                        <th>Id</th><th>Name</th><th>Email</th><th>Phone</th><th>Roles</th><th>Created</th>
+                      </tr></thead><tbody>`;
+
+                    items.forEach(u => {
+                        html += `<tr>
+                          <td>${u.id}</td>
+                          <td>${u.fullName}</td>
+                          <td>${u.email || ""}</td>
+                          <td>${u.phoneNumber || ""}</td>
+                          <td>${(u.roles || []).join(", ")}</td>
+                          <td>${(u.createdAt || "").toString().substring(0,10)}</td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+                    $("#list").html(html);
+                })
+                .fail(function(xhr) {
+                    showMsg("#msg", xhr.responseText || "Load failed", "err");
+                });
+        }
+
+        $("#btnLoad").click(load);
+        load();
+    </script>
+}

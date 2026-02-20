@@ -1,13 +1,19 @@
-﻿namespace SmartBabySitter.Models
+﻿namespace SmartBabySitter.Models;
+
+public class Notification
 {
-    public class Notification
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Receiver { get; set; }
-        public string Message { get; set; }
+    public int ReceiverUserId { get; set; }
+    public ApplicationUser ReceiverUser { get; set; } = default!;
 
-        public string Type { get; set; } // SMS / Email
-        public DateTime SentAt { get; set; }
-    }
+    public NotificationType Type { get; set; } = NotificationType.InApp;
+    public string Title { get; set; } = "";
+    public string Message { get; set; } = "";
+
+    public bool IsSent { get; set; } = false;
+    public string? ErrorMessage { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? SentAt { get; set; }
 }

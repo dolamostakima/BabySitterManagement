@@ -10,7 +10,7 @@ namespace SmartBabySitter.Models
         public string Phone { get; set; }
         public string PasswordHash { get; set; }
 
-        public string Skills { get; set; }
+        public string BabySitterSkill { get; set; }
         public int ExperienceYears { get; set; }
 
         public decimal HourlyRate { get; set; }

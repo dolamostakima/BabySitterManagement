@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "My Reviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="mb-3">My Reviews</h3>
+<div id="msg"></div>
+<div id="list" class="card p-3 shadow-sm">Loading...</div>
+
+@section Scripts {
+    <script>
+        const token = (localStorage.getItem("jwt_token") || "").replace(/^"|"$/g,"");
+
+        function api(url){
+          return $.ajax({
+            url,
+            headers:{ Authorization:`Bearer ${token}` }
+          });
+        }
+        function showErr(t){ $("#msg").html(`<div class="alert alert-danger">${t}</div>`); }
+
+        function stars(n){
+          n = n || 0;
+          return "★★★★★☆☆☆☆☆".substring(5-n, 10-n);
+        }
+
+        api("/api/reviews/me")
+         .done(res=>{
+           const items = res.items || [];
+           if(!items.length){
+             $("#list").html(`<div class="text-muted">No reviews yet.</div>`);
+             return;
+           }
+
+           const html = items.map(r=>`
+             <div class="border rounded p-3 mb-2">
+               <div class="d-flex justify-content-between">
+                 <div><b>${stars(r.rating)} (${r.rating})</b> <span class="text-muted">Booking #${r.bookingId}</span></div>
+                 <div class="small text-muted">${(r.createdAt||"").substring(0,10)}</div>
+               </div>
+               <div class="mt-2">${r.comment || "<span class='text-muted'>No comment</span>"}</div>
+               <div class="mt-2 small">
+                 <span class="badge bg-${r.isApproved?'success':'warning'}">${r.isApproved?'Approved':'Pending'}</span>
+                 ${r.isHidden?`<span class="badge bg-secondary ms-1">Hidden</span>`:""}
+               </div>
+             </div>
+           `).join("");
+
+           $("#list").html(html);
+         })
+         .fail(x=> showErr(x.responseText || "Failed to load"));
+    </script>
+}

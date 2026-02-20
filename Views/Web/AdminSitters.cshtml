@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Admin - Sitters";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Admin: Sitters Approval</h3>
+
+<div class="card p-3 mb-3">
+    <div class="row g-2">
+        <div class="col-md-3">
+            <select id="approved" class="form-select">
+                <option value="">All</option>
+                <option value="false">Pending</option>
+                <option value="true">Approved</option>
+            </select>
+        </div>
+        <div class="col-md-5">
+            <input id="query" class="form-control" placeholder="Search by name/email/location" />
+        </div>
+        <div class="col-md-2">
+            <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+        </div>
+    </div>
+</div>
+
+<div id="msg"></div>
+<div id="list"></div>
+
+@section Scripts {
+    <script>
+        function load() {
+            const approved = $("#approved").val();
+            const query = $("#query").val();
+
+            let url = "/api/admin/sitters?";
+            if (approved !== "") url += "approved=" + approved + "&";
+            if (query) url += "query=" + encodeURIComponent(query) + "&";
+
+            $.get(url)
+                .done(function(items) {
+                    if (!items.length) {
+                        $("#list").html(`<div class="alert alert-warning">No sitters found.</div>`);
+                        return;
+                    }
+
+                    let html = `<table class="table table-bordered">
+                        <thead><tr>
+                          <th>Id</th><th>Name</th><th>Email</th><th>Phone</th><th>Rate</th><th>Exp</th><th>Location</th><th>Approved</th><th>Action</th>
+                        </tr></thead><tbody>`;
+
+                    items.forEach(s => {
+                        html += `<tr>
+                          <td>${s.id}</td>
+                          <td>${s.fullName}</td>
+                          <td>${s.email || ""}</td>
+                          <td>${s.phone || ""}</td>
+                          <td>${s.hourlyRate}</td>
+                          <td>${s.experienceYears}</td>
+                          <td>${s.locationText}</td>
+                          <td>${s.isApproved ? "Yes" : "No"}</td>
+                          <td>
+                            <button class="btn btn-sm btn-success" onclick="approve(${s.id}, true)">Approve</button>
+                            <button class="btn btn-sm btn-danger" onclick="approve(${s.id}, false)">Reject</button>
+                          </td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+                    $("#list").html(html);
+                })
+                .fail(function(xhr) {
+                    showMsg("#msg", xhr.responseText || "Load failed", "err");
+                });
+        }
+
+        window.approve = function(id, approve) {
+            $.ajax({
+                url: "/api/sitters/" + id + "/approve?approve=" + approve,
+                method: "PUT",
+                success: function() {
+                    showMsg("#msg", "Updated!", "ok");
+                    load();
+                },
+                error: function(xhr) {
+                    showMsg("#msg", xhr.responseText || "Update failed", "err");
+                }
+            });
+        }
+
+        $("#btnLoad").click(load);
+        load();
+    </script>
+}
