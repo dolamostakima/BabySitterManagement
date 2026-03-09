@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "j5TYNLMeM3o=",
+  "dgSpecHash": "MjTWT4u8amI=",
   "success": true,
   "projectFilePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
   "expectedPackageFiles": [
@@ -84,14 +84,20 @@
     "C:\\Users\\S_Mim\\.nuget\\packages\\system.text.json\\9.0.0-preview.6.24327.7\\system.text.json.9.0.0-preview.6.24327.7.nupkg.sha512",
     "C:\\Users\\S_Mim\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
     "C:\\Users\\S_Mim\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\S_Mim\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
+    "C:\\Users\\S_Mim\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\S_Mim\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.13\\microsoft.windowsdesktop.app.ref.9.0.13.nupkg.sha512",
+    "C:\\Users\\S_Mim\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.13\\microsoft.netcore.app.ref.9.0.13.nupkg.sha512",
+    "C:\\Users\\S_Mim\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.13\\microsoft.aspnetcore.app.ref.9.0.13.nupkg.sha512",
+    "C:\\Users\\S_Mim\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\9.0.13\\microsoft.netcore.app.host.win-x64.9.0.13.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1603",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "SmartBabySitter depends on Microsoft.AspNetCore.Authentication.JwtBearer (>= 9.0.0-preview.6.24327.4) but Microsoft.AspNetCore.Authentication.JwtBearer 9.0.0-preview.6.24327.4 was not found. Microsoft.AspNetCore.Authentication.JwtBearer 9.0.0-preview.6.24328.4 was resolved instead.",
+      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
       "libraryId": "Microsoft.AspNetCore.Authentication.JwtBearer",
       "targetGraphs": [
         "net9.0"
@@ -100,8 +106,10 @@
     {
       "code": "NU1603",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "SmartBabySitter depends on Microsoft.EntityFrameworkCore (>= 9.0.0-preview.6) but Microsoft.EntityFrameworkCore 9.0.0-preview.6 was not found. Microsoft.EntityFrameworkCore 9.0.0-preview.6.24327.4 was resolved instead.",
+      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
       "libraryId": "Microsoft.EntityFrameworkCore",
       "targetGraphs": [
         "net9.0"
@@ -110,8 +118,10 @@
     {
       "code": "NU1603",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "SmartBabySitter depends on Microsoft.EntityFrameworkCore.Design (>= 9.0.0-preview.6) but Microsoft.EntityFrameworkCore.Design 9.0.0-preview.6 was not found. Microsoft.EntityFrameworkCore.Design 9.0.0-preview.6.24327.4 was resolved instead.",
+      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
       "libraryId": "Microsoft.EntityFrameworkCore.Design",
       "targetGraphs": [
         "net9.0"
@@ -120,8 +130,10 @@
     {
       "code": "NU1603",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "SmartBabySitter depends on Microsoft.EntityFrameworkCore.SqlServer (>= 9.0.0-preview.6) but Microsoft.EntityFrameworkCore.SqlServer 9.0.0-preview.6 was not found. Microsoft.EntityFrameworkCore.SqlServer 9.0.0-preview.6.24327.4 was resolved instead.",
+      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
       "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
       "targetGraphs": [
         "net9.0"
@@ -130,8 +142,10 @@
     {
       "code": "NU1603",
       "level": "Warning",
-      "warningLevel": 1,
       "message": "SmartBabySitter depends on Microsoft.EntityFrameworkCore.Tools (>= 9.0.0-preview.6) but Microsoft.EntityFrameworkCore.Tools 9.0.0-preview.6 was not found. Microsoft.EntityFrameworkCore.Tools 9.0.0-preview.6.24327.4 was resolved instead.",
+      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "warningLevel": 1,
+      "filePath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
       "libraryId": "Microsoft.EntityFrameworkCore.Tools",
       "targetGraphs": [
         "net9.0"
