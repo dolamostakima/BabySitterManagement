@@ -5091,11 +5091,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "projectUniqueName": "D:\\dolamostakima\\BabySitterManagement\\SmartBabySitter.csproj",
       "projectName": "SmartBabySitter",
-      "projectPath": "D:\\BabySitterManagement\\SmartBabySitter.csproj",
+      "projectPath": "D:\\dolamostakima\\BabySitterManagement\\SmartBabySitter.csproj",
       "packagesPath": "C:\\Users\\S_Mim\\.nuget\\packages\\",
-      "outputPath": "D:\\BabySitterManagement\\obj\\",
+      "outputPath": "D:\\dolamostakima\\BabySitterManagement\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

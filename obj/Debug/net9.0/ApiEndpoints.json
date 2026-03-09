@@ -726,6 +726,27 @@
   },
   {
     "ContainingType": "SmartBabySitter.Controllers.API.ReviewsController",
+    "Method": "Reply",
+    "RelativePath": "api/Reviews/{reviewId}/reply",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "SmartBabySitter.Services.DTOs.ReviewReplyDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartBabySitter.Controllers.API.ReviewsController",
     "Method": "CanReview",
     "RelativePath": "api/Reviews/can-review",
     "HttpMethod": "GET",
@@ -748,6 +769,27 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartBabySitter.Controllers.API.ReviewsController",
+    "Method": "MyReceived",
+    "RelativePath": "api/Reviews/my-received",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

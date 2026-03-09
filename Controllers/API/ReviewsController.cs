@@ -7,7 +7,7 @@ namespace SmartBabySitter.Controllers.API;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Parent")]
+[Authorize]
 public class ReviewsController : ControllerBase
 {
     private readonly IReviewService _reviews;
@@ -40,4 +40,55 @@ public class ReviewsController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> My()
     => Ok(await _reviews.GetMyReviewsAsync());
+
+    // GET: /api/reviews/my-received?page=1&pageSize=50
+    [Authorize(Roles = "BabySitter")]
+    [HttpGet("my-received")]
+    public async Task<IActionResult> MyReceived([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    {
+        try
+        {
+            return Ok(await _reviews.GetMyReceivedReviewsAsync(page, pageSize));
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+
+    [Authorize(Roles = "BabySitter")]
+    [HttpPost("{reviewId:int}/reply")]
+    public async Task<IActionResult> Reply(int reviewId, [FromBody] ReviewReplyDto dto)
+    {
+        try
+        {
+            await _reviews.ReplyAsync(reviewId, dto);
+            return Ok(new { replied = true });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(ex.Message);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

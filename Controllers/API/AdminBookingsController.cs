@@ -148,7 +148,10 @@ public class AdminBookingsController : ControllerBase
                     x.Review.Id,
                     x.Review.Rating,
                     x.Review.Comment,
-                    x.Review.CreatedAt
+                    x.Review.IsApproved,
+                    x.Review.CreatedAt,
+                    x.Review.SitterReply,
+                    x.Review.SitterReplyAt
                 },
 
                 Attendance = x.Attendance == null ? null : new

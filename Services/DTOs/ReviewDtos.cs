@@ -7,3 +7,8 @@ public record ReviewCreateDto(
 );
 
 public record ReviewAdminDecisionDto(bool Approve, bool Hide = false, string? Note = null);
+
+public class ReviewReplyDto
+{
+    public string? Reply { get; set; }
+}

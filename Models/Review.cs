@@ -20,4 +20,9 @@ public class Review
 
     public bool IsApproved { get; set; } = false; // Admin approve করলে true
     public bool IsHidden { get; set; } = false;   // Admin hide করলে true
+
+    public string? SitterReply { get; set; }
+    public DateTime? SitterReplyAt { get; set; }
+    public int? SitterReplyByUserId { get; set; }
+    public DateTime? SitterReplyUpdatedAt { get; set; }
 }

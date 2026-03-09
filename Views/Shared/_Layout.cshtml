@@ -72,6 +72,18 @@
             font-size: 13px;
             color: #334155;
         }
+
+        body {
+            background: #f8fafc;
+        }
+
+        .rounded-4 {
+            border-radius: 1rem !important;
+        }
+
+        .bg-primary-subtle {
+            background-color: #e8f1ff;
+        }
     </style>
 </head>
 
@@ -135,7 +147,8 @@
             { section:"Parent" },
             { text:"Search Sitters", url:"/Web/Sitters" },
             { text:"My Bookings", url:"/Web/ParentBookings" },
-            { text:"Favorites", url:"/Web/Favorites" },          // (page add করবে)
+                { text: "My Reviews", url: "/Web/MyReviews" },
+               { text:"Favorites", url:"/Web/Favorites" },          // (page add করবে)
             { text:"Notifications", url:"/Web/Notifications" }   // (page add করবে)
           ],
           sitter: [
@@ -151,7 +164,8 @@
             { text:"Sitters Approval", url:"/Web/AdminSitters" },
             { text:"Bookings", url:"/Web/AdminBookings" },
             { text:"Users", url:"/Web/AdminUsers" },
-            { text:"Payments", url:"/Web/AdminPayments" }
+            { text:"Payments", url:"/Web/AdminPayments" },
+                { text: "Reviews", url: "/Web/AdminReviews" },
           ]
         };
 

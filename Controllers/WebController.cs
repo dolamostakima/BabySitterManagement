@@ -5,29 +5,31 @@ namespace SmartBabySitter.Controllers;
 
 public class WebController : Controller
 {
-    public IActionResult Index() => View();              // Home
-    public IActionResult Login() => View();              // Parent/Sitter login
-    public IActionResult Register() => View();           // Register
-    public IActionResult Sitters() => View();            // Search sitter
-    public IActionResult SitterDetails(int id) => View(model: id); // details + booking
-    public IActionResult ParentBookings() => View();     // parent booking list
-    public IActionResult SitterBookings() => View();     // sitter booking list/manage
-    public IActionResult ReviewCreate(int id) // id = bookingId
-           => View(id);
-    public IActionResult AdminDashboard() => View();     // admin dashboard + approve
+    public IActionResult Index() => View();
+    public IActionResult Login() => View();
+    public IActionResult Register() => View();
+    public IActionResult Sitters() => View();
+    public IActionResult SitterDetails(int id) => View(model: id);
+
+    public IActionResult ParentBookings() => View();
+    public IActionResult SitterBookings() => View();
+
+    public IActionResult ReviewCreate(int id) => View(id);
+
+    public IActionResult AdminDashboard() => View();
     public IActionResult AdminSitters() => View();
     public IActionResult AdminBookings() => View();
     public IActionResult AdminBookingDetails(int id) => View(model: id);
     public IActionResult AdminUsers() => View();
     public IActionResult AdminPayments() => View();
+    public IActionResult AdminReviews() => View();
 
     public IActionResult Favorites() => View();
     public IActionResult Notifications() => View();
 
     public IActionResult SitterProfile() => View();
     public IActionResult SitterAvailability() => View();
+    public IActionResult SitterReviews() => View();
 
     public IActionResult MyReviews() => View();
-
-    public IActionResult AdminReviews() => View();
 }
