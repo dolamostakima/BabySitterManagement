@@ -7,6 +7,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="images\**" />
+	  <Compile Remove="NewFolder\**" />
+	  <Compile Remove="Views\NewFolder\**" />
+	  <Content Remove="images\**" />
+	  <Content Remove="NewFolder\**" />
+	  <Content Remove="Views\NewFolder\**" />
+	  <EmbeddedResource Remove="images\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
+	  <EmbeddedResource Remove="Views\NewFolder\**" />
+	  <None Remove="images\**" />
+	  <None Remove="NewFolder\**" />
+	  <None Remove="Views\NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
 

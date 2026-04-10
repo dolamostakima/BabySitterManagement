@@ -15,109 +15,111 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v9.0
 build_property.RootNamespace = SmartBabySitter
 build_property.RootNamespace = SmartBabySitter
-build_property.ProjectDir = D:\dolamostakima\BabySitterManagement\
+build_property.ProjectDir = D:\Project\BabySitterManagement\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\dolamostakima\BabySitterManagement
+build_property.MSBuildProjectDirectory = D:\Project\BabySitterManagement
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Shared/_Layout.cshtml]
+[D:/Project/BabySitterManagement/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminBookingDetails.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminBookingDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluQm9va2luZ0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminBookings.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminBookings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluQm9va2luZ3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminDashboard.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminPayments.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminPayments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluUGF5bWVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminReviews.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminReviews.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluUmV2aWV3cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminSitters.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminSitters.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluU2l0dGVycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/AdminUsers.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/AdminUsers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEFkbWluVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Favorites.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/Favorites.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEZhdm9yaXRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Index.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Login.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/MyReviews.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/MyReviews.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXE15UmV2aWV3cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Notifications.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/Notifications.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXE5vdGlmaWNhdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/ParentBookings.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/ParentBookings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFBhcmVudEJvb2tpbmdzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Register.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/ReviewCreate.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/ReviewCreate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFJldmlld0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/SitterAvailability.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/SitterAvailability.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlckF2YWlsYWJpbGl0eS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/SitterBookings.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/SitterBookings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlckJvb2tpbmdzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/SitterDetails.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/SitterDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlckRldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/SitterProfile.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/SitterProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlclByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/Web/Sitters.cshtml]
+[D:/Project/BabySitterManagement/Views/Web/SitterReviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlclJldmlld3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project/BabySitterManagement/Views/Web/Sitters.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2ViXFNpdHRlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/_ViewImports.cshtml]
+[D:/Project/BabySitterManagement/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/dolamostakima/BabySitterManagement/Views/_ViewStart.cshtml]
+[D:/Project/BabySitterManagement/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

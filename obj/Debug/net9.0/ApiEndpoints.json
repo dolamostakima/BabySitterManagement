@@ -672,6 +672,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SmartBabySitter.Controllers.API.OrganizationRequestsController",
+    "Method": "Create",
+    "RelativePath": "api/organizations",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "SmartBabySitter.Models.OrganizationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartBabySitter.Controllers.API.PaymentsController",
     "Method": "Create",
     "RelativePath": "api/Payments",

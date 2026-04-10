@@ -8,6 +8,13 @@ public class WebController : Controller
     public IActionResult Index() => View();
     public IActionResult Login() => View();
     public IActionResult Register() => View();
+
+    public IActionResult ParentDashboard() => View();
+    public IActionResult SitterDashboard() => View();
+    public IActionResult RegisterParent() => View();
+    public IActionResult RegisterBabysitterType() => View();
+    public IActionResult RegisterIndividual() => View();
+    public IActionResult RegisterOrganization() => View();
     public IActionResult Sitters() => View();
     public IActionResult SitterDetails(int id) => View(model: id);
 

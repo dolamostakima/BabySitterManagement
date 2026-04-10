@@ -4,7 +4,7 @@
 }
 
 <div class="container py-3">
-    <h3 class="mb-3">Admin: Reviews Moderation</h3>
+    <h3 class="mb-3"> Reviews Moderation</h3>
 
     <div class="card p-3 mb-3 shadow-sm">
         <div class="row g-2">
@@ -28,8 +28,11 @@
                 <label class="form-label">Search</label>
                 <input id="query" class="form-control" placeholder="Search name/email/comment/reply" />
             </div>
-            <div class="col-md-2 d-flex align-items-end">
-                <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+            <div class="col-md-3 d-flex gap-2">
+
+                <button id="btnLoad" class="btn btn-primary w-50">🔍︎</button>
+
+                <button id="btnDownload" class="btn btn-primary w-50">🡻</button>
             </div>
         </div>
     </div>
@@ -177,5 +180,37 @@
 
         $("#btnLoad").click(load);
         $(document).ready(load);
+
+         $("#btnDownload").click(function () {
+
+            let table = document.querySelector("table");
+            if (!table) {
+                alert("No data to download");
+                return;
+            }
+
+            let rows = table.querySelectorAll("tr");
+            let csv = [];
+
+            rows.forEach(row => {
+                let cols = row.querySelectorAll("th, td");
+                let rowData = [];
+                cols.forEach(col => {
+                    rowData.push(col.innerText);
+                });
+                csv.push(rowData.join(","));
+            });
+
+            let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "payments.csv");
+            document.body.appendChild(link);
+
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 }

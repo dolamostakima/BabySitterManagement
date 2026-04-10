@@ -3,22 +3,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Admin: Payments</h3>
+<h3> Payments</h3>
 
 <div class="card p-3 mb-3">
-    <div class="row g-2">
+    <div class="row g-2 align-items-end">
+
         <div class="col-md-3">
+            <label>Status</label>
             <select id="status" class="form-select">
                 <option value="">All</option>
                 <option>Pending</option>
                 <option>Paid</option>
-                <option>Failed</option>
                 <option>Refunded</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+
+        <div class="col-md-3">
+            <label>From</label>
+            <input id="from" type="date" class="form-control" />
         </div>
+
+        <div class="col-md-3">
+            <label>To</label>
+            <input id="to" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-3 d-flex gap-2">
+
+            <button id="btnLoad" class="btn btn-primary w-50">🔍︎</button>
+
+            <button id="btnDownload" class="btn btn-primary w-50">🡻</button>
+        </div>
+
     </div>
 </div>
 
@@ -40,7 +56,7 @@
 
                     let html = `<table class="table table-bordered">
                       <thead><tr>
-                        <th>Id</th><th>BookingId</th><th>Amount</th><th>Method</th><th>TxnId</th><th>Status</th><th>Created</th>
+                        <th>Id</th><th>BookingId</th><th>Amount</th><th>Method</th><th>TxnId</th><th>Status</th><th>Date</th>
                       </tr></thead><tbody>`;
 
                     items.forEach(p => {
@@ -50,7 +66,7 @@
                           <td>${p.amount}</td>
                           <td>${p.method}</td>
                           <td>${p.transactionId || ""}</td>
-                          <td>${p.status}</td>
+                          <td>${p.name || p.status}</td>
                           <td>${(p.createdAt || "").toString().substring(0,10)}</td>
                         </tr>`;
                     });
@@ -65,5 +81,36 @@
 
         $("#btnLoad").click(load);
         load();
+                $("#btnDownload").click(function () {
+
+            let table = document.querySelector("table");
+            if (!table) {
+                alert("No data to download");
+                return;
+            }
+
+            let rows = table.querySelectorAll("tr");
+            let csv = [];
+
+            rows.forEach(row => {
+                let cols = row.querySelectorAll("th, td");
+                let rowData = [];
+                cols.forEach(col => {
+                    rowData.push(col.innerText);
+                });
+                csv.push(rowData.join(","));
+            });
+
+            let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "payments.csv");
+            document.body.appendChild(link);
+
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 }

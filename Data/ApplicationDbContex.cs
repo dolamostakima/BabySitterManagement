@@ -12,6 +12,7 @@ public class ApplicationDbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
+    public DbSet<OrganizationRequest> OrganizationRequests => Set<OrganizationRequest>();
     public DbSet<BabySitterProfile> BabySitterProfiles => Set<BabySitterProfile>();
     public DbSet<Skill> Skills => Set<Skill>();
     public DbSet<BabySitterSkill> BabySitterSkills => Set<BabySitterSkill>();

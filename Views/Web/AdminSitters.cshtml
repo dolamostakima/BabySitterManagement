@@ -3,22 +3,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Admin: Sitters Approval</h3>
+<h3>Sitters Approval</h3>
 
 <div class="card p-3 mb-3">
-    <div class="row g-2">
+    <div class="row g-2 align-items-end">
         <div class="col-md-3">
+            <label>Status</label>
             <select id="approved" class="form-select">
                 <option value="">All</option>
-                <option value="false">Pending</option>
+                <option value="false">Rejected</option>
                 <option value="true">Approved</option>
             </select>
         </div>
-        <div class="col-md-5">
-            <input id="query" class="form-control" placeholder="Search by name/email/location" />
+        <div class="col-md-3">
+            <label>From</label>
+            <input id="from" type="date" class="form-control" />
         </div>
-        <div class="col-md-2">
-            <button id="btnLoad" class="btn btn-primary w-100">Load</button>
+
+        <div class="col-md-3">
+            <label>To</label>
+            <input id="to" type="date" class="form-control" />
+        </div>
+
+        <div class="col-md-3 d-flex gap-2">
+
+            <button id="btnLoad" class="btn btn-primary w-50">🔍︎</button>
+       
+            <button id="btnDownload" class="btn btn-primary w-50">🡻</button>
         </div>
     </div>
 </div>
@@ -45,7 +56,7 @@
 
                     let html = `<table class="table table-bordered">
                         <thead><tr>
-                          <th>Id</th><th>Name</th><th>Email</th><th>Phone</th><th>Rate</th><th>Exp</th><th>Location</th><th>Approved</th><th>Action</th>
+                          <th>Id</th><th>Name</th><th>Email</th><th>Phone</th><th>Rate</th><th>Exp</th><th>Location</th><th>Action Date</th><th>Action</th>
                         </tr></thead><tbody>`;
 
                     items.forEach(s => {
@@ -59,8 +70,8 @@
                           <td>${s.locationText}</td>
                           <td>${s.isApproved ? "Yes" : "No"}</td>
                           <td>
-                            <button class="btn btn-sm btn-success" onclick="approve(${s.id}, true)">Approve</button>
-                            <button class="btn btn-sm btn-danger" onclick="approve(${s.id}, false)">Reject</button>
+                            <button class="btn btn-sm btn-success" onclick="approve(${s.id}, true)">✔</button>
+                            <button class="btn btn-sm btn-danger" onclick="approve(${s.id}, false)">❌</button>
                           </td>
                         </tr>`;
                     });
@@ -89,5 +100,36 @@
 
         $("#btnLoad").click(load);
         load();
+        $("#btnDownload").click(function () {
+
+            let table = document.querySelector("table");
+            if (!table) {
+                alert("No data to download");
+                return;
+            }
+
+            let rows = table.querySelectorAll("tr");
+            let csv = [];
+
+            rows.forEach(row => {
+                let cols = row.querySelectorAll("th, td");
+                let rowData = [];
+                cols.forEach(col => {
+                    rowData.push(col.innerText);
+                });
+                csv.push(rowData.join(","));
+            });
+
+            let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "payments.csv");
+            document.body.appendChild(link);
+
+            link.click();
+            document.body.removeChild(link);
+        });
     </script>
 }

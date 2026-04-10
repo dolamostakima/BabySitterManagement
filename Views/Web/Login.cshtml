@@ -3,7 +3,177 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Login</h3>
+
+
+<style>
+    body {
+  
+        background: #FADADD;
+       /*  background: url('/images/charlesdeluvio-ANXvPivk6Fw-unsplash.jpg');
+        background-size: cover; */
+    }
+
+    .login-wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: space-between;
+ 
+    }
+
+    .left-image {
+        width: 60%; 
+         background: url('/images/charlesdeluvio-ANXvPivk6Fw-unsplash.jpg') ;
+       
+        background-size: cover;
+    }
+
+    .login-card {
+        width: 380px;
+        border-radius: 15px;
+        padding: 30px;
+        background: #ffffff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+
+    .logo-box {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 15px;
+       
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .logo-box img {
+            width: 100px;
+        }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .btn-login {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        background: #6c8aa6;
+        border: none;
+        color: white;
+        font-weight: 500;
+    }
+
+        .btn-login:hover {
+            background: #5a7996;
+        }
+
+    .small-link {
+        font-size: 13px;
+        display: block;
+        margin-top: 10px;
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .small-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="login-wrapper g-4 ">
+
+    <div class="left-image">
+        <img src="~/images/charlesdeluvio-ANXvPivk6Fw-unsplash.jpg" alt="Logo" width="100" height="90" />
+    </div>
+
+    <div class="login-card">
+
+        <!-- Logo -->
+        <div class="logo-box">
+            <img src="~/images/logo.png" alt="Logo" width="100" height="90" />
+        </div>
+
+        <!-- Title -->
+        <h4 class="fw-bold">KIDOHAVEN</h4>
+        <p class="text-muted mb-4">Sign in to your account</p>
+
+        <!-- Message -->
+        <div id="msg"></div>
+
+        <!-- Email -->
+        <div class="mb-3 text-start">
+            <label>Email address</label>
+            <input id="email" class="form-control" placeholder="you@example.com" />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-2 text-start">
+            <label>Password</label>
+            <input id="password" type="password" class="form-control" placeholder="Enter your password" />
+        </div>
+
+        <div class="text-end mb-3">
+            <a href="#" class="small-link">Forgot Password?</a>
+        </div>
+
+        <!-- Button -->
+        <button id="btnLogin" class="btn btn-login mb-3">Log In</button>
+
+        <!-- Links -->
+        <div>
+            <a href="/Web/Register" class="small-link">Don't have an account? <b>Create one</b></a>
+           
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#btnLogin").click(function () {
+            const data = {
+                email: $("#email").val(),
+                password: $("#password").val()
+            };
+
+            $.ajax({
+                url: API_BASE + "/api/auth/login",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (res) {
+                    setToken(res.token);
+                    localStorage.setItem("jwt_token", res.token);
+                    localStorage.setItem("user_roles", JSON.stringify(res.roles || []));
+                    localStorage.setItem("user_email", res.email || "");
+                    showMsg("#msg", "Login success!", "ok");
+                         
+                    
+                    const roles = JSON.parse(localStorage.getItem("user_roles") || "[]");
+
+                                 if (roles.includes("Admin")) {
+                                    location.href = "/Web/AdminDashboard";
+                                 }
+                                else if (roles.includes("BabySitter")) {
+                                    location.href = "/Web/SitterDashboard";
+                                }
+                              else {
+                                    location.href = "/Web/ParentDashboard";
+                              }
+                },
+                        error: function (xhr) {
+                            showMsg("#msg", xhr.responseText || "Login failed", "err");
+                        }
+            });
+        });
+    </script>
+}
+
+
+@* <h3>Login</h3>
 
 <div id="msg"></div>
 
@@ -17,9 +187,9 @@
         <input id="password" type="password" class="form-control" />
     </div>
     <button id="btnLogin" class="btn btn-primary">Login</button>
-</div>
+</div> *@
 
-@section Scripts {
+@* @section Scripts {
     <script>
         $("#btnLogin").click(function () {
             const data = {
@@ -46,4 +216,4 @@
             });
         });
     </script>
-}
+} *@

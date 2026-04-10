@@ -30,7 +30,7 @@ public class AdminUsersController : ControllerBase
         }
 
         var users = await q
-            .OrderByDescending(u => u.CreatedAt)
+            .OrderBy(u => u.CreatedAt)
             .Select(u => new
             {
                 u.Id,

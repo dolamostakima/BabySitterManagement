@@ -3,6 +3,140 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
+
+<style>
+    .register-wrapper {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0f2ff, #ffffff);
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 420px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border: none;
+    }
+
+    .logo-text {
+        font-size: 28px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #0d6efd, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+    }
+
+    .btn-custom {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #0d6efd, #00c6ff);
+        border: none;
+        font-weight: 600;
+    }
+
+        .btn-custom:hover {
+            opacity: 0.9;
+        }
+</style>
+
+<div class="register-wrapper">
+
+    <div class="card register-card p-4">
+
+        <!-- Logo + Title -->
+        <div class="text-center mb-3">
+            <img src="/images/logo.png" width="100" height="90" class="mb-2" />
+            <div class="logo-text">KidoHaven</div>
+            
+        </div>
+
+        @* <div id="msg"></div>
+
+        <div class="mb-2">
+            <label>Full Name</label>
+            <input id="fullName" class="form-control" placeholder="Enter your name" />
+        </div>
+
+        <div class="mb-2">
+            <label>Email</label>
+            <input id="email" class="form-control" placeholder="Enter your email" />
+        </div>
+
+        <div class="mb-2">
+            <label>Password</label>
+            <input id="password" type="password" class="form-control" placeholder="Enter password" />
+        </div>
+ *@
+        <div class="mb-3">
+            <label>Choose Your Role</label>
+            <select id="role" class="form-select">
+                <option value="">-- Select Role --</option>
+                <option value="Parent">Parent</option>
+                <option value="BabySitter">BabySitter</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        $("#role").change(function () {
+            const role = $(this).val();
+
+            if (role === "Parent") {
+                window.location.href = "/Web/RegisterParent";
+            }
+            else if (role === "BabySitter") {
+                window.location.href = "/Web/RegisterBabysitterType";
+            }
+        });
+    </script>
+}
+
+
+@* @section Scripts {
+    <script>
+        $("#btnRegister").click(function () {
+            const data = {
+                fullName: $("#fullName").val(),
+                email: $("#email").val(),
+                password: $("#password").val(),
+                role: $("#role").val()
+            };
+
+            $.ajax({
+                url: API_BASE + "/api/auth/register",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (res) {
+                    setToken(res.token);
+                    localStorage.setItem("user_roles", JSON.stringify(res.roles || []));
+                    showMsg("#msg", "Register success! Redirecting...", "ok");
+                    setTimeout(() => location.href = "/Web/Sitters", 700);
+                },
+                error: function (xhr) {
+                    showMsg("#msg", xhr.responseText || "Register failed", "err");
+                }
+            });
+        });
+    </script>
+} *@
+
+
+
+
+
+@* 
 <h3>Register</h3>
 <div id="msg"></div>
 
@@ -58,4 +192,4 @@
             });
         });
     </script>
-}
+} *@
