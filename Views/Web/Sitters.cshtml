@@ -41,7 +41,7 @@
 </div>
 
 <div id="msg"></div>
-<div id="result"></div>
+<div id="result1"></div>
 
 @section Scripts {
     <script>
@@ -85,7 +85,7 @@
 
         function render(items) {
             if (!items.length) {
-                $("#result").html(`<div class="alert alert-warning">No sitters found.</div>`);
+                $("#result1").html(`<div class="alert alert-warning">No sitters found.</div>`);
                 return;
             }
 
@@ -104,7 +104,7 @@
                   </div>`;
             });
             html += `</div>`;
-            $("#result").html(html);
+            $("#result1").html(html);
         }
 
         $("#btnSearch").click(loadSitters);

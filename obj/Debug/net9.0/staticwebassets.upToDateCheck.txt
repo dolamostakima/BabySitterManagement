@@ -1,10 +1,10 @@
-wwwroot\images\charlesdeluvio-ANXvPivk6Fw-unsplash.jpg
-wwwroot\images\download (7).jpeg
-wwwroot\images\download.jpeg
-wwwroot\images\Home .png
-wwwroot\images\images (1).jpeg
-wwwroot\images\images.jpeg
-wwwroot\images\Loginpage.png
 wwwroot\images\logo.png
-wwwroot\images\logo__2_-removebg-preview.png
+wwwroot\images\download (7).jpeg
+wwwroot\images\Home .png
+wwwroot\images\download.jpeg
+wwwroot\images\images.jpeg
+wwwroot\images\images (1).jpeg
+wwwroot\images\charlesdeluvio-ANXvPivk6Fw-unsplash.jpg
 wwwroot\images\Reg.jpg
+wwwroot\images\logo__2_-removebg-preview.png
+wwwroot\images\Loginpage.png

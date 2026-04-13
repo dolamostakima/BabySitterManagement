@@ -809,6 +809,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SitterProfileController",
+    "Method": "SaveProfile",
+    "RelativePath": "api/SitterProfile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SitterProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SitterProfileController",
+    "Method": "DeleteProfile",
+    "RelativePath": "api/SitterProfile",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SitterProfileController",
+    "Method": "GetMyProfile",
+    "RelativePath": "api/SitterProfile/me/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartBabySitter.Controllers.API.SittersController",
     "Method": "Get",
     "RelativePath": "api/Sitters/{babySitterProfileId}",
@@ -843,42 +879,6 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SitterProfileController",
-    "Method": "GetMyProfile",
-    "RelativePath": "api/sitters/me/profile",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SitterProfileController",
-    "Method": "SaveProfile",
-    "RelativePath": "api/sitters/me/profile",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "SitterProfileDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SitterProfileController",
-    "Method": "DeleteProfile",
-    "RelativePath": "api/sitters/me/profile",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

@@ -1347,7 +1347,7 @@
         }
       }
     },
-    "/api/sitters/me/profile": {
+    "/api/SitterProfile/me/profile": {
       "get": {
         "tags": [
           "SitterProfile"
@@ -1357,7 +1357,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/SitterProfile": {
       "post": {
         "tags": [
           "SitterProfile"

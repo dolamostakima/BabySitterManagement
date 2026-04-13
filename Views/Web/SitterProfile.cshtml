@@ -145,7 +145,7 @@
 
     function loadProfile(){
         $.ajax({
-            url: "/api/sitters/me/profile",
+            url: "/api/SitterProfile/me/profile",
             method: "GET",
             headers: { Authorization: `Bearer ${getToken()}` }
         })

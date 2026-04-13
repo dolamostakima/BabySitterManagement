@@ -6,7 +6,7 @@ using SmartBabySitter.Services.DTOs;
 using System.Security.Claims;
 using SmartBabySitter.Models;
 
-[Route("api/sitters/me/profile")]
+[Route("api/[controller]")]
 [ApiController]
 [Authorize]
 public class SitterProfileController : ControllerBase
@@ -19,12 +19,15 @@ public class SitterProfileController : ControllerBase
     }
 
     // ================= GET PROFILE =================
-    [HttpGet]
+    [HttpGet("me/profile")]
     public async Task<IActionResult> GetMyProfile()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        var user = await _context.Users.FindAsync(userId);
+        if (!int.TryParse(userId, out int id))
+            return BadRequest("Invalid user id");
+
+        var user = await _context.Users.FindAsync(id);
 
         var profile = await _context.SitterProfiles
             .Include(x => x.Skills)
@@ -38,10 +41,10 @@ public class SitterProfileController : ControllerBase
             email = user.Email,
             mobileNo = user.PhoneNumber,
 
-            nid = profile?.Nid,
-            gender = profile?.Gender,
-            dateOfBirth = profile?.DateOfBirth,
-            address = profile?.Address,
+            nid = user?.NidNo,
+            gender = user?.Gender,
+            dateOfBirth = user?.DateOfBirth,
+            address = user?.Address,
             photoUrl = profile?.PhotoUrl,
 
             skillsText = profile?.SkillsText,
