@@ -32,6 +32,9 @@ public class ApplicationDbContext
 
     public DbSet<SitterCardRow> SitterCardRows => Set<SitterCardRow>();
 
+    public DbSet<SitterProfile> SitterProfiles { get; set; }
+    public DbSet<SitterSkill> SitterSkills { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

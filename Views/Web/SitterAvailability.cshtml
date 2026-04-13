@@ -7,7 +7,7 @@
 
 <div class="card p-3 mb-3">
     <div class="row g-2">
-        <div class="col-md-3">
+       @*  <div class="col-md-3">
             <select id="day" class="form-select">
                 <option value="">(Weekly) Select Day</option>
                 <option value="1">Sunday</option>
@@ -18,7 +18,7 @@
                 <option value="6">Friday</option>
                 <option value="7">Saturday</option>
             </select>
-        </div>
+        </div> *@
         <div class="col-md-3"><input id="date" type="date" class="form-control" placeholder="(Date specific)" /></div>
         <div class="col-md-2"><input id="start" type="time" class="form-control" /></div>
         <div class="col-md-2"><input id="end" type="time" class="form-control" /></div>
@@ -36,11 +36,16 @@
           $.get("/api/availabilities/me")
             .done(items=>{
               if(!items.length){ $("#list").html(`<div class="alert alert-warning">No availability</div>`); return; }
-              let html=`<table class="table table-bordered"><thead><tr><th>Id</th><th>Day</th><th>Date</th><th>Time</th><th>Action</th></tr></thead><tbody>`;
+              let html=`<table class="table table-bordered"><thead><tr><th>Id</th>
+
+               
+
+              <th>Date</th><th>Time</th><th>Action</th></tr></thead><tbody>`;
               items.forEach(a=>{
                 html += `<tr>
-                  <td>${a.id}</td>
-                  <td>${a.day ?? ""}</td>
+                 <td>${a.id}</td>
+
+                
                   <td>${a.date ? a.date.substring(0,10) : ""}</td>
                   <td>${a.startTime} - ${a.endTime}</td>
                   <td><button class="btn btn-sm btn-danger" onclick="del(${a.id})">Delete</button></td>

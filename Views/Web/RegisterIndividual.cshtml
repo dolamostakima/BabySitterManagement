@@ -55,98 +55,131 @@
 
         <!-- Logo + Title -->
         <div class="text-center mb-3">
-            <img src="/images/logo.png" alt="Logo" width="100" height="90" />
+            <img src="/images/logo__2_-removebg-preview.png" alt="Logo" width="150" height="100" />
             <h5 class="mb-0">Individual Sitter Registration</h5>
             <small class="text-muted">Create your sitter account</small>
         </div>
 
         <form id="registerForm">
 
-            <div class="mb-2">
-                <label>Full Name</label>
-                <input type="text" class="form-control" placeholder="e.g. Rahima Begum" required>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label>NID No</label>
+                    <input type="text" id="nidNo" class="form-control" required>
+                </div>
             </div>
 
-            <div class="mb-2">
-                <label>NID No</label>
-                <input type="text" class="form-control" placeholder="e.g. 1234567890" required>
-            </div>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Gender</label>
+                    <select id="gender" class="form-select" required>
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
 
-            <div class="mb-2">
-                <label>Gender</label>
-                <select class="form-select" required>
-                    <option value="">(Select)</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                </select>
-            </div>
-
-            <div class="mb-2">
-                <label>Date of Birth</label>
-                <input type="date" class="form-control" required>
+                <div class="col-md-6 mb-2">
+                    <label>Date of Birth</label>
+                    <input type="date" id="dateOfBirth" class="form-control" required>
+                </div>
             </div>
 
             <div class="mb-2">
                 <label>Address</label>
-                <textarea class="form-control" rows="2" placeholder="e.g. House 10, Mirpur, Dhaka" required></textarea>
+                <textarea id="address" class="form-control" required></textarea>
             </div>
 
-            <div class="mb-2">
-                <label>Email</label>
-                <input type="email" class="form-control" placeholder="e.g. sitter@gmail.com" required>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label>Phone No</label>
+                    <input type="text" id="phoneNo" class="form-control" required>
+                </div>
             </div>
 
-            <div class="mb-2">
-                <label>Phone No</label>
-                <input type="text" class="form-control" placeholder="e.g. 017XXXXXXXX" required>
-            </div>
-
-            <!-- 🔥 NEW FIELD -->
             <div class="mb-2">
                 <label>Experience</label>
-                <input type="text" class="form-control" placeholder="e.g. 2 years babysitting experience" required>
+                <input type="text" id="experience" class="form-control" required>
             </div>
 
-            <div class="mb-2">
-                <label>Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Password (min 6 characters)" required>
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" required>
+                    <div id="errorMsg" class="error-text">Password mismatch!</div>
+                </div>
             </div>
 
-            <div class="mb-1">
-                <label>Confirm Password</label>
-                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
-                <div id="errorMsg" class="error-text">Password mismatch!</div>
-            </div>
-
-            <!-- Buttons -->
-            <div class="d-flex justify-content-between mt-3">
-                <button type="submit" class="btn btn-dark w-40">
-                    Create Account
-                </button>
-
-                <button type="button" class="btn btn-outline-secondary ms-2" onclick="history.back()">
-                    Back ⮜
-                </button>
-            </div>
-
+            <button type="submit" class="btn btn-dark mt-3 w-100">Register</button>
         </form>
 
     </div>
 </div>
 
-<script>
-    const form = document.getElementById("registerForm");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
-    const errorMsg = document.getElementById("errorMsg");
-
-    form.addEventListener("submit", function (e) {
-        if (password.value !== confirmPassword.value) {
+@section Scripts {
+    <script>
+       $("#registerForm").submit(function (e) {
             e.preventDefault();
-            errorMsg.style.display = "block";
-        } else {
-            errorMsg.style.display = "none";
-        }
-    });
-</script>
+
+            const password = $("#password").val();
+            const confirmPassword = $("#confirmPassword").val();
+
+            if (password !== confirmPassword) {
+                $("#errorMsg").show();
+                return;
+            } else {
+                $("#errorMsg").hide();
+            }
+
+            const data = {
+                fullName: $("#fullName").val(),
+                email: $("#email").val(),
+                password: password,
+                role: "BabySitter",
+
+                nidNo: $("#nidNo").val(),
+                gender: $("#gender").val(),
+                dateOfBirth: $("#dateOfBirth").val(),
+                address: $("#address").val(),
+                phoneNo: $("#phoneNo").val(),
+                experience: $("#experience").val(),
+                type: 2
+            };
+
+            $.ajax({
+                url: API_BASE + "/api/auth/register",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+
+                success: function (res) {
+                    localStorage.setItem("token", res.token);
+                    localStorage.setItem("user_roles", JSON.stringify(res.roles));
+
+                    alert("✅ Registration Successful");
+                    window.location.href = "/Web/Sitters";
+                },
+
+                error: function (xhr) {
+                    alert("❌ " + (xhr.responseText || "Registration failed"));
+                }
+            });
+        });
+    </script>
+}

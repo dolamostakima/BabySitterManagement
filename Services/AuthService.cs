@@ -37,7 +37,15 @@ public class AuthService : IAuthService
             FullName = req.FullName,
             Email = req.Email,
             UserName = req.Email,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            NidNo = req.nidNo,
+            Gender=req.gender,
+            DateOfBirth=req.dateOfBirth,
+            Address=req.address,
+            PhoneNo=req.phoneNo,
+            Experience=req.Experience,
+            Type=req.type == 1 ? "Parent" : "BabySitter"
+
         };
 
         var result = await _userManager.CreateAsync(user, req.Password);

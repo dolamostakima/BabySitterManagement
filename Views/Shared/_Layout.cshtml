@@ -16,11 +16,11 @@
 
         /* Navbar */
         .navbar {
-            background: linear-gradient(90deg,#fb7185, #f472b6);
+            background: #DBBEB6; 
             overflow: visible !important;
         }
 
-        /* Logo text design */
+        /* Logo text design
         .navbar-brand {
             font-weight: bold;
             font-size: 20px;
@@ -126,11 +126,11 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
 
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="~/images/logo.png" width="55" class="me-2" />
+                <img src="~/images/logo__2_-removebg-preview.png" width="100" class="me-2" />
                 
             </a>
 
@@ -146,7 +146,7 @@
                     <input class="form-control rounded-pill pe-5"
                            type="search"
                            id="searchInput"
-                           placeholder="Search sitter by ..." />
+                           placeholder="Search sitter by Location ..." />
 
                     <button type="submit" class="position-absolute end-0 top-50 translate-middle-y me-2 search-btn">
                         <i class="bi bi-search"></i>
@@ -167,7 +167,9 @@
 
     <div class="content">
         <main class="container my-4">
+            <div id="result"></div>
             @RenderBody()
+
         </main>
     </div>
 
@@ -364,17 +366,42 @@
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({
-                    keyword: query
+                    locationText: query
                 }),
                 success: function (res) {
                     console.log(res);
-                    alert("Search working ✅");
+                   render(res.items || []);
                 },
                 error: function () {
                     alert("Search failed ❌");
                 }
             });
+
         });
+
+        function render(items) {
+            if (!items.length) {
+                $("#result").html(`<div class="alert alert-warning">No sitters found.</div>`);
+                return;
+            }
+
+            let html = `<div class="row g-3">`;
+            items.forEach(s => {
+                html += `
+                  <div class="col-md-4">
+                    <div class="card p-3 h-100">
+                      <h5>${s.fullName}</h5>
+                      <div>Rate: <b>${s.hourlyRate}</b></div>
+                      <div>Exp: ${s.experienceYears} years</div>
+                      <div>Location: ${s.locationText}</div>
+                      <div>Rating: ${s.avgRating} (${s.reviewCount})</div>
+                      <a class="btn btn-sm btn-outline-primary mt-2" href="/Web/SitterDetails/${s.babySitterProfileId}">Details & Booking</a>
+                    </div>
+                  </div>`;
+            });
+            html += `</div>`;
+            $("#result").html(html);
+        }
 
     </script>
 
