@@ -846,6 +846,42 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SitterProfileController",
+    "Method": "GetMyProfile",
+    "RelativePath": "api/sitters/me/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SitterProfileController",
+    "Method": "SaveProfile",
+    "RelativePath": "api/sitters/me/profile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SitterProfileDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SitterProfileController",
+    "Method": "DeleteProfile",
+    "RelativePath": "api/sitters/me/profile",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SmartBabySitter.Controllers.API.SittersController",
     "Method": "UpsertMyProfile",
     "RelativePath": "api/Sitters/me/profile",

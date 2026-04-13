@@ -19,8 +19,7 @@
                         <option value="">All</option>
                         <option value="Pending">Pending</option>
                         <option value="Accepted">Accepted</option>
-                        <option value="Rejected">Rejected</option>
-                        <option value="Confirmed">Confirmed</option>
+                       
                         <option value="Completed">Completed</option>
                         <option value="Cancelled">Cancelled</option>
                     </select>
@@ -82,8 +81,7 @@
                 switch (status) {
                     case 1: return "pending";
                     case 2: return "accepted";
-                    case 3: return "rejected";
-                    case 4: return "confirmed";
+                 
                     case 5: return "completed";
                     case 6: return "cancelled";
                     default: return String(status).toLowerCase();
@@ -106,8 +104,7 @@
             switch (s) {
                 case "pending": return "Pending";
                 case "accepted": return "Accepted";
-                case "rejected": return "Rejected";
-                case "confirmed": return "Confirmed";
+               
                 case "completed": return "Completed";
                 case "cancelled":
                 case "canceled": return "Cancelled";
@@ -123,10 +120,7 @@
                     return `<span class="badge bg-warning text-dark">Pending</span>`;
                 case "accepted":
                     return `<span class="badge bg-info text-dark">Accepted</span>`;
-                case "rejected":
-                    return `<span class="badge bg-danger">Rejected</span>`;
-                case "confirmed":
-                    return `<span class="badge bg-primary">Confirmed</span>`;
+             
                 case "completed":
                     return `<span class="badge bg-success">Completed</span>`;
                 case "cancelled":

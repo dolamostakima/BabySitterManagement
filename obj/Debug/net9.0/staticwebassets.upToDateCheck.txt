@@ -4,4 +4,7 @@ wwwroot\images\download.jpeg
 wwwroot\images\Home .png
 wwwroot\images\images (1).jpeg
 wwwroot\images\images.jpeg
+wwwroot\images\Loginpage.png
 wwwroot\images\logo.png
+wwwroot\images\logo__2_-removebg-preview.png
+wwwroot\images\Reg.jpg
